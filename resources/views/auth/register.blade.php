@@ -39,6 +39,18 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <div class="py-3">
+            <select class="rounded-md border-slate-300" name="role" id="role" onchange="toggleOption()">
+                <option value="user">User</option>
+                <option value="org">Organization</option>
+            </select>
+        </div>
+
+        <div>
+            <input class="w-full rounded-md border-slate-300" type="text" name="organization" id="organization" placeholder="Organization Name">
+            <x-input-error :messages="$errors->get('organization')" class="mt-2" />
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
@@ -49,4 +61,18 @@
             </x-primary-button>
         </div>
     </form>
+    <script>
+        var orgInput = document.getElementById('organization').style.display = "none";
+        function toggleOption() {
+            var option = document.getElementById('role');
+            var orgInput = document.getElementById('organization');
+
+            if(option.value === 'user'){
+                orgInput.style.display = "none";
+            } else {
+                orgInput.style.display = "block";
+            }
+        }
+        
+    </script>
 </x-guest-layout>
