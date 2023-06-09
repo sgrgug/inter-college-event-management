@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="px-44 my-5">
-        <img class="" src="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?cs=srgb&dl=pexels-joyston-judah-933054.jpg&fm=jpg" alt="">
+        {{-- <img class="h-32 w-full object-cover" src="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?cs=srgb&dl=pexels-joyston-judah-933054.jpg&fm=jpg" alt=""> --}}
     </div>
     
 
@@ -42,6 +42,26 @@
         data xa
     @endif
 
+    <div class="max-w-screen-2xl m-auto p-1 bg-yellow-200">
+        <div class="my-10 px-2 md:px-10 lg:px-32 bg-yellow-100">
+
+            {{-- Event Search --}}
+            <form action="" method="post">
+                <input class="w-3/5 md:w-2/5 lg:w-1/4 rounded-3xl bg-gray-200 border-none px-5" placeholder="search events" type="text">
+            </form>
+
+            @can('isOrg')
+                <div class="my-5 py-5">
+                    <a class="bg-blue-500 text-white p-3 font-bold" href="{{ route('events.create') }}">Create New Event</a>
+                </div>
+            @endcan
+
+
+        </div>
+    </div>
+
+
+    {{-- events- e-name, e-description, e-photo, e-location , e-organize by, cateogry /// e-description --}}
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
