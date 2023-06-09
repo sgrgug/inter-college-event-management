@@ -14,7 +14,10 @@ class HomeController extends Controller
         // To check whether any of attribute is null or not
         $data = Organization::where('user_id', auth()->user()->id)
             ->where(function ($query) {
-                $query->whereNull('name')->orWhereNull('description');
+                $query->whereNull('name')
+                ->orWhereNull('description')
+                ->orWhereNull('photo')
+                ->orWhereNull('location');
             })->first();
 
         if ($data) {

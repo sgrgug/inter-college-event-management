@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
 
     //update org profile
     Route::get('organization/org-profile-update', [OrgProfileController::class, 'index'])->middleware('can:isOrg')->name('organization.org_profile_update');
+    Route::post('organization/org-profile-update', [OrgProfileController::class, 'update'])->middleware('can:isOrg')->name('organization.org_profile_update_update');
+    // Route::get('/add', [OrgProfileController::class, 'update']);
 
 
     // events
