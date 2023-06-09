@@ -18,7 +18,7 @@
     </div> --}}
 
     @if ($check)
-        <a href="#">
+        <a href="{{ route('organization.org_profile_update') }}">
             <div class="flex justify-center items-center">
                 <div class="bg-gradient-to-r from-[#FFACAC] to-[#FFBFA9] p-4 rounded-lg">
                     <div class="flex text-white">

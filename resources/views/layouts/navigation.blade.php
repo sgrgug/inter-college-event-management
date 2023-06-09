@@ -15,7 +15,7 @@
             <div class="flex justify-between items-center">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <a href="#">Home</a>
+                    <a href={{ route('home') }}>Home</a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <a href="#">Events</a>
