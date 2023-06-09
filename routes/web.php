@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+
+
+// events
+Route::resource('/events', EventController::class);
 
 
 Route::get('/dashboard', function(){
