@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }
