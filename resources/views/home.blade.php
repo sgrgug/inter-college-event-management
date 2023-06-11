@@ -56,19 +56,31 @@
             
 
             @if ($checkingInterest === 0)
-            <form method="POST" action="add-interest">
+            <form method="POST" action="add-interest" class="bg-white p-4 rounded shadow-sm">
+                @csrf
                 @foreach ($categories as $cat)
-                    {{-- <span class="bg-red-300 font-bold px-5 py-2 text-white inline-block my-1 rounded cursor-pointer">{{ $cat->cat_name }}</span> --}}
-                    @csrf
-                    {{-- <input type="checkbox" name="categories[]" value="{{ $cat->id }}" id="{{ $cat->id }}"> --}}
-                    
-                    <input type="checkbox" name="options[]" value="{{ $cat->id }}" id="{{ $cat->id }}"> {{ $cat->cat_name }}<br>
-
-                    {{-- <label class="" for="{{ $cat->id }}">{{ $cat->cat_name }}</label> --}}
-                    <br>
-                    @endforeach
-                    <button type="submit">Submit</button>
+                    <input class="hidden" type="checkbox" name="options[]" value="{{ $cat->id }}" id="{{ $cat->id }}">
+                    <label onclick="selectLabel(this)" class="bg-slate-200 px-5 py-2 rounded inline-block m-1 cursor-pointer" for="{{ $cat->id }}"> {{ $cat->cat_name }}</label>          
+                @endforeach
+                <br />
+                    <button class="bg-blue-500 text-white p-3 font-bold shadow mt-10" type="submit">Submit</button>
             </form>
+
+            <script>
+                function selectLabel(x)
+                {
+                    if(x.classList.contains("bg-slate-200"))
+                    {
+                        x.classList.remove("bg-slate-200");
+                        x.classList.add("bg-[#FFACAC]");
+                        x.classList.add("text-white");
+                    } else {
+                        x.classList.remove("bg-[#FFACAC]");
+                        x.classList.add("bg-slate-200");
+                        x.classList.remove("text-white");
+                    }
+                }
+            </script>
             @else
                 {{-- if user setup their profile then --}}
     
@@ -77,7 +89,7 @@
                     <input class="w-3/5 md:w-2/5 lg:w-1/4 rounded-3xl bg-gray-200 border-none px-5" placeholder="search events" type="text">
                 </form>
 
-
+                ds
 
             @endif
             
