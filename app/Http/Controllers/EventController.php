@@ -23,8 +23,9 @@ class EventController extends Controller
      */
     public function index()
     {
+        $events = Event::all();
         
-        return view('events.index');
+        return view('events.index', compact('events'));
     }
 
     /**
@@ -70,6 +71,9 @@ class EventController extends Controller
 
         $user = User::find(auth()->user()->id)->organization;
         $event->organize_by = $user->name;
+
+
+        $event->start = $request->datetime;
 
 
         

@@ -55,6 +55,15 @@
                         <input class="rounded-md border-gray-400" name="location" type="text">
                     </div>
 
+
+                    <div class="flex flex-col p-5">
+                        <label class="font-bold text-gray-500" for="">Time</label>
+                        @error('datetime')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                        <input type="datetime-local" id="datetime" name="datetime">
+                    </div>
+
                     <div class="p-5">
                         <input class="bg-blue-500 text-white px-3 py-1 cursor-pointer rounded-md my-4" type="submit" value="Save">
                     </div>

@@ -10,13 +10,6 @@
     </div>
     
 
-    
-    {{-- <div class="max-w-screen-2xl m-auto">
-        <div class="bg-red-300">
-            {{ $null }}
-        </div>
-    </div> --}}
-
     @if ($check)
         <a href="{{ route('organization.org_profile_update') }}">
             <div class="flex justify-center items-center">

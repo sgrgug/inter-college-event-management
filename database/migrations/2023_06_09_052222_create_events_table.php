@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('photo');
             $table->string('location');
             $table->bigInteger('cat_id');
-            $table->string('organize_by'); //by email which is enquie for everyone
+            $table->string('organize_by'); //by email which is enquie for everyone tara ahile Org Name le garexa
+            $table->dateTime('start'); 
             $table->timestamps();
         });
     }
