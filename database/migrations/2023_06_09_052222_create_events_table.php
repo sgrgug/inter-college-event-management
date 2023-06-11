@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('photo');
-            $table->string('event_cat');
             $table->string('location');
             $table->bigInteger('cat_id');
             $table->string('organize_by'); //by email which is enquie for everyone

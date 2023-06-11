@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use App\Models\Organization;
+use App\Models\Category;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -41,7 +44,10 @@ class EventController extends Controller
             return redirect()->route('organization.org_profile_update');
         }
 
-        return view('events.create');
+        //event category show 
+        $event_cat = Category::all();
+
+        return view('events.create', compact('event_cat'));
     }
 
     /**
@@ -49,7 +55,35 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required | string | min:5 | max:30',
+            'description' => 'required | string | min:10',
+            'photo' => 'required | mimes:jpg,jpeg,png',
+            'location' => 'required | string | min:4 | max:15',
+        ]);
+
+        $event = new Event();
+        $event->name = $request->name;
+        $event->description = $request->description;
+        $event->location = $request->location;
+        $event->cat_id = $request->cat_value;
+
+        $user = User::find(auth()->user()->id)->organization;
+        $event->organize_by = $user->name;
+
+
+        
+        $photo = $request->file('photo');
+        $filename = Str::slug($request->name) . '-' . time() . '.' . $photo->getClientOriginalExtension();
+
+        $photo->move(public_path('uploads/event/'), $filename);
+
+
+        $event->photo = $filename;
+
+        $event->save();
+
+        return redirect()->route('events.index');
     }
 
     /**
