@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Interest;
+use App\Models\Category;
 use App\Models\Organization;
 
 class HomeController extends Controller
@@ -32,5 +34,20 @@ class HomeController extends Controller
         // $org_name = $user->organization->name;
 
         return view('home', compact(['check']));
+    }
+
+    public function add_interest()
+    {
+
+        $user = User::find(auth()->user()->id);
+        $categories = [1, 3];
+
+
+        if($user->interests()->whereIn('category_id', $categories)->exists()){
+            return redirect()->route('home');
+        } else {
+            $user->categories()->attach($categories);
+            return 'done';
+        }
     }
 }

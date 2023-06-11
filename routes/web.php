@@ -41,6 +41,10 @@ Route::middleware('auth')->group(function () {
     // Route::get('/add', [OrgProfileController::class, 'update']);
 
 
+    //user interest update
+    Route::get('/add-interest', [HomeController::class, 'add_interest']);
+
+
     // events
     Route::resource('/events', EventController::class);
 

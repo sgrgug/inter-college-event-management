@@ -18,7 +18,7 @@
                     <a href={{ route('home') }}>Home</a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <a href="#">Events</a>
+                    <a href="{{ route('events.index') }}">Events</a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <a href="#">About</a>
@@ -77,7 +77,7 @@
             <x-responsive-nav-link :href="route('home')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('home')">
+            <x-responsive-nav-link :href="route('events.index')">
                 {{ __('Events') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('home')">

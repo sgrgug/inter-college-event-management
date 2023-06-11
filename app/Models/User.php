@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Organization;
+use App\Models\Category;
+use App\Models\Interest;
 
 class User extends Authenticatable
 {
@@ -48,5 +50,17 @@ class User extends Authenticatable
     public function organization()
     {
         return $this->hasOne(Organization::class);
+    }
+
+
+    public function interests()
+    {
+        return $this->hasOne(Interest::class);
+    }
+
+    //many to many relationship between  user and categories with the help of interest
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'interests');
     }
 }
