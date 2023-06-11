@@ -42,7 +42,10 @@ Route::middleware('auth')->group(function () {
 
 
     //user interest update
-    Route::get('/add-interest', [HomeController::class, 'add_interest']);
+    Route::get('/add-interest', function(){
+        return redirect()->route('home');
+    });
+    Route::post('/add-interest', [HomeController::class, 'add_interest']);
 
 
     // events

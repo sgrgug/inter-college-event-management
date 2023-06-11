@@ -29,18 +29,31 @@ class HomeController extends Controller
         }
 
 
-        // $user = User::find(auth()->user()->id);
+        //to check whether user setup their interest or not
+        $hasData = Interest::where('user_id', auth()->user()->id)->exists();
 
-        // $org_name = $user->organization->name;
+        if($hasData){
+            $checkingInterest = 1;
+        } else {
+            $checkingInterest = 0;
+        }
 
-        return view('home', compact(['check']));
+
+        //retrieve all data from event category
+        $categories = Category::all();
+
+
+
+        return view('home', compact(['check', 'checkingInterest','categories']));
     }
 
-    public function add_interest()
+    public function add_interest(Request $request)
     {
 
         $user = User::find(auth()->user()->id);
-        $categories = [1, 3];
+        $categories = $request->input('options');
+        $categories = array_map('intval', $categories);
+        // $categories = [1, 3];
 
 
         if($user->interests()->whereIn('category_id', $categories)->exists()){
