@@ -14,7 +14,7 @@
                         @error('name')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input class="rounded-md border-gray-400" placeholder="Event Name" name="name" type="text">
+                        <input class="rounded-md border-gray-400" placeholder="Event Name" name="name" type="text" value={{ old('name') }}>
                     </div>
                     
                     <div class="flex flex-col p-5">
@@ -22,7 +22,7 @@
                         @error('description')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <textarea class="rounded-md border-gray-400" name="description" placeholder="Description" type="text"></textarea>
+                        <textarea class="rounded-md border-gray-400" name="description" placeholder="Description" type="text">{{ old('description') }}</textarea>
                     </div>
                     
                     <div class="flex flex-col p-5">
@@ -52,7 +52,7 @@
                         @error('location')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input class="rounded-md border-gray-400" name="location" type="text">
+                        <input class="rounded-md border-gray-400" name="location" type="text" value="{{ old('location') }}">
                     </div>
 
 

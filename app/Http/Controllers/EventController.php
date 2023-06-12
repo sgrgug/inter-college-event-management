@@ -60,7 +60,7 @@ class EventController extends Controller
             'name' => 'required | string | min:5 | max:30',
             'description' => 'required | string | min:10',
             'photo' => 'required | mimes:jpg,jpeg,png',
-            'location' => 'required | string | min:4 | max:15',
+            'location' => 'required | string | min:4 | max:30',
         ]);
 
         $event = new Event();
