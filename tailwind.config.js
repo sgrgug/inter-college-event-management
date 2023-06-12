@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                'source-code-pro': ['Source Code Pro', 'monospace'],
             },
         },
     },
