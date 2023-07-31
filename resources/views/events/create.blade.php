@@ -14,8 +14,33 @@
                         @error('name')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input class="rounded-md border-gray-400" placeholder="Event Name" name="name" type="text" value={{ old('name') }}>
+                        <input id="field1" oninput="copyFieldToSlug()" class="rounded-md border-gray-400" placeholder="Event Name" name="name" type="text" value={{ old('name') }}>
                     </div>
+
+                    <div class="flex flex-col p-4">
+                        <label class="font-bold text-gray-500" for="">Event Slug</label>
+                        @error('slug')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                        <input id="slug" class="rounded-md border-gray-400" placeholder="Event Slug" name="slug" type="text" value={{ old('slug') }}>
+                    </div>
+
+                    <script>
+                        function slugify(text) {
+                          return text.toString().toLowerCase()
+                            .replace(/\s+/g, '-')           // Replace spaces with -
+                            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+                            .replace(/^-+/, '')             // Trim - from start of text
+                            .replace(/-+$/, '');            // Trim - from end of text
+                        }
+                    
+                        function copyFieldToSlug() {
+                          var field1Value = document.getElementById("field1").value;
+                          var slugValue = slugify(field1Value);
+                          document.getElementById("slug").value = slugValue;
+                        }
+                    </script>
                     
                     <div class="flex flex-col p-5">
                         <label class="font-bold text-gray-500" for="">Description</label>
@@ -61,7 +86,7 @@
                         @error('datetime')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input type="datetime-local" id="datetime" name="datetime">
+                        <input type="datetime-local" id="datetime" name="datetime" value="{{ old('datetime') }}">
                     </div>
 
                     <div class="p-5">

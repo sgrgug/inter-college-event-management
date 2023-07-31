@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Interest;
 use App\Models\Category;
+use App\Models\Event;
 use App\Models\Organization;
 
 class HomeController extends Controller
@@ -42,9 +43,19 @@ class HomeController extends Controller
         //retrieve all data from event category
         $categories = Category::all();
 
+        // $user = User::latest()->with('interests')->get();
+        $interest = Interest::where('user_id', auth()->user()->id)->latest()->get();
+        $idsArray = [];
 
+        foreach ($interest as $key => $value) {
+            $idsArray[] = $value->category_id;
+        }
 
-        return view('home', compact(['check', 'checkingInterest','categories']));
+        $cat = Category::whereIn('id', $idsArray)->get();
+
+       $events =   Event::whereIn('cat_id', $idsArray)->latest()->get();
+
+        return view('home', compact(['check', 'checkingInterest','categories', 'events']));
     }
 
     public function add_interest(Request $request)

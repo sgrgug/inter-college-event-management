@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
 
     // events
     Route::resource('/events', EventController::class);
+    Route::get('/events-{cat}', [EventController::class, 'getDataByCat'])->name('events.getDataByCat');
+    // Route::get('/events-{id}', [EventController::class, 'getDataByCat'])->name('events.getDataByCat');
 
 });
 

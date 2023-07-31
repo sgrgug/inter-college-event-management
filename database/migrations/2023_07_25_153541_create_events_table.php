@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('slug');
+            $table->longtext('description');
             $table->string('photo');
             $table->string('location');
-            $table->bigInteger('cat_id');
+            $table->foreignId('cat_id')->constrained('categories');
             $table->string('organize_by'); //by email which is enquie for everyone tara ahile Org Name le garexa
             $table->dateTime('start'); 
             $table->timestamps();

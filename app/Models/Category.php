@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->belongsToMany(User::class, 'interests');
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

@@ -14,7 +14,7 @@ class EventController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:isOrg')->except('index');
+        $this->middleware('can:isOrg')->except('index', 'getDataByCat');
     }
 
 
@@ -23,9 +23,13 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
-        
-        return view('events.index', compact('events'));
+        $events     =   Event::with('category')->get();
+        $cats       =   Category::all();
+
+        return view('events.index', [
+            'events' => $events,
+            'cats' => $cats,
+        ]);
     }
 
     /**
@@ -57,7 +61,8 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required | string | min:5 | max:30',
+            'name' => 'required | string | min:5 | max:50',
+            'slug' => 'required | string | min:5 | max:50',
             'description' => 'required | string | min:10',
             'photo' => 'required | mimes:jpg,jpeg,png',
             'location' => 'required | string | min:4 | max:30',
@@ -65,12 +70,13 @@ class EventController extends Controller
 
         $event = new Event();
         $event->name = $request->name;
+        $event->slug = Str::slug($request->slug);
         $event->description = $request->description;
         $event->location = $request->location;
         $event->cat_id = $request->cat_value;
 
-        $user = User::find(auth()->user()->id)->organization;
-        $event->organize_by = $user->name;
+        // return $user = User::find(auth()->user()->id)->organization;
+        $event->organize_by = auth()->user()->name;
 
 
         $event->start = $request->datetime;
@@ -95,7 +101,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('events.show', compact('event'));
     }
 
     /**
@@ -112,6 +118,21 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         //
+    }
+
+    public function getDataByCat(string $slug)
+    {
+        $cat_id = Category::where('slug', $slug)->first();
+        if($slug == Null){
+            $events     =   Event::with('category')->get();
+        }else{
+            $events     =   Event::where('cat_id', $cat_id->id)->with('category')->get();
+        }
+        $cats       =   Category::all();
+        return view('events.index', [
+            'events' => $events,
+            'cats' => $cats,
+        ]);
     }
 
     /**

@@ -78,12 +78,44 @@
                 {{-- if user setup their profile then --}}
     
                 {{-- Event Search --}}
-                <form action="" method="post">
-                    <input class="w-3/5 md:w-2/5 lg:w-1/4 rounded-3xl bg-gray-200 border-none px-5" placeholder="search events" type="text">
-                </form>
+                <div class="my-24">
+                    <input id="searchInput" class="w-3/5 md:w-2/5 lg:w-1/4 rounded-3xl bg-gray-200 border-none px-5" placeholder="search events" type="text">
+                </div>
 
-                ds
-
+                <div class="event-cards">
+                    @if ($events->count() > 0)
+                      @foreach ($events as $event)
+                          <div class="bg-white rounded-lg shadow-lg p-10 my-10">
+                              <div class="p-4">
+                                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                      <div>
+                                          <h1 class="mb-3 text-zinc-500">Category</h1>
+                                          <span class="font-source-code-pro text-xl">{{ $event->category->cat_name }}</span>
+                                      </div>
+                                      <div>
+                                          <h1 class="mb-3 text-zinc-500">Location</h1>
+                                          <span class="font-source-code-pro text-xl">{{ $event->location }}</span>
+                                      </div>
+                                      <div>
+                                          <h1 class="mb-3 text-zinc-500">Organization</h1>
+                                          <span class="font-source-code-pro text-xl">{{ $event->organize_by }}</span>
+                                      </div>
+                                  </div>
+    
+                                  <div class="font-bold mt-10 mb-4 text-2xl font-source-code-pro">{{ $event->name }}</div>
+                                  <p class="font-normal text-gray-700 mb-3">{{ Illuminate\Support\Str::limit($event->description, 200) }}</p>
+                                  <a href="{{ route('events.show', $event->id) }}" class="inline-block bg-blue-500 text-white py-2 px-5 rounded-md my-4">View Event</a>
+                              </div>
+                          </div>
+                      @endforeach
+    
+                    @else
+                          <div class="text-center py-20 text-3xl text-zinc-500">
+                            No Data
+                          </div>
+                    @endif
+                    {{-- {{ $events->links() }} --}}
+                </div>
             @endif
             
             
@@ -105,3 +137,76 @@
         </div>
     </div>
 </x-app-layout>
+
+
+
+<script>
+    $(document).ready(function() {
+        // Function to display all event cards
+        function displayAllEventCards() {
+            $('.event-cards .bg-white').show();
+        }
+    
+        // Function to hide all event cards
+        function hideAllEventCards() {
+            $('.event-cards .bg-white').hide();
+        }
+    
+        // Function to display "No results found" message
+        function showNoResultsMessage() {
+            // Remove any previous "No results found" message
+            hideNoResultsMessage();
+
+            // Append the new "No results found" message
+            $('.event-cards').append('<div class="no-results">No results found.</div>');
+        }
+    
+        // Function to hide "No results found" message
+        function hideNoResultsMessage() {
+            $('.no-results').remove();
+        }
+
+        // Variable to store the setTimeout function
+        var searchTimeout;
+    
+        // Event listener for the search input field
+        $('#searchInput').on('keyup', function() {
+            // Clear the previous setTimeout function
+            clearTimeout(searchTimeout);
+
+            var searchQuery = $(this).val().toLowerCase();
+            var eventCards = $('.event-cards .bg-white'); // Get all event cards
+    
+            if (searchQuery.trim() === '') {
+                displayAllEventCards(); // If search query is empty, show all event cards
+                hideNoResultsMessage(); // Hide "No results found" message
+                return;
+            }
+
+            // Add a delay of 300ms before performing the search
+            searchTimeout = setTimeout(function() {
+                hideAllEventCards(); // Hide all event cards initially
+    
+                var resultsFound = false; // To keep track if any results were found
+    
+                eventCards.each(function() {
+                    var eventCard = $(this);
+                    var eventName = eventCard.find('.font-bold').text().toLowerCase();
+                    var eventDescription = eventCard.find('.font-normal').text().toLowerCase();
+    
+                    // Check if the search query matches the event name or description
+                    if (eventName.includes(searchQuery) || eventDescription.includes(searchQuery)) {
+                        eventCard.show(); // Show the event card if there's a match
+                        resultsFound = true; // Set to true as results were found
+                    }
+                });
+    
+                if (!resultsFound) {
+                    showNoResultsMessage(); // If no results were found, show "No results found" message
+                } else {
+                    hideNoResultsMessage(); // Otherwise, hide "No results found" message
+                }
+            }, 300); // Delay of 300ms before performing the search
+        });
+    });
+</script>

@@ -16,6 +16,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        @include('spinner')
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
@@ -25,6 +26,32 @@
             </main>
         </div>
 
+        @include('layouts.footer')
+
+        <script>
+            // Function to hide the spinner
+            function hideSpinner() {
+                document.getElementById('spinner-overlay').style.display = 'none';
+            }
+    
+            // Show the spinner
+            document.getElementById('spinner-overlay').style.display = 'flex';
+    
+            // Function to hide the spinner after 3 seconds
+            function hideSpinnerAfterTimeout() {
+                hideSpinner();
+                document.removeEventListener('DOMContentLoaded', hideSpinnerAfterTimeout);
+            }
+    
+            // Call the hideSpinnerAfterTimeout function after 3 seconds
+            setTimeout(hideSpinnerAfterTimeout, 3000);
+    
+            // Hide the spinner on DOMContentLoaded
+            document.addEventListener('DOMContentLoaded', hideSpinnerAfterTimeout);
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
         {{-- icon --}}
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
