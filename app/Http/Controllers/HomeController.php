@@ -55,6 +55,7 @@ class HomeController extends Controller
 
        $events =   Event::whereIn('cat_id', $idsArray)->latest()->get();
 
+
         return view('home', compact(['check', 'checkingInterest','categories', 'events']));
     }
 

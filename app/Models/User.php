@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Organization;
 use App\Models\Category;
 use App\Models\Interest;
+use App\Models\Event;
 
 class User extends Authenticatable
 {
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'interests');
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class)->withTimestamps();
     }
 }

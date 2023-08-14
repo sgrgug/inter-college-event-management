@@ -58,10 +58,22 @@
             {{-- total events, org, user, event category --}}
         </div>
     </div>
+
+
     
 
     <div class="max-w-screen-2xl m-auto p-1">
         <div class="my-10 px-2 md:px-10 lg:px-32">
+            @can('isOrg')
+                <div class="grid grid-cols-1 md:grid-cols-12">
+                    <div class="md:col-span-2">
+                        <a href="{{ route('events.create') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Events</a>
+                    </div>
+                    <div class="md:col-span-2">
+                        <a href="{{ route('events.create') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Events</a>
+                    </div>
+                </div>
+            @endcan
             <div class="my-24">
                 <input id="searchInput" class="w-3/5 md:w-2/5 lg:w-1/4 rounded-3xl bg-gray-200 border-none px-5" placeholder="search events" type="text">
             </div>
@@ -86,7 +98,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
               
 
             <div class="event-cards">
@@ -105,7 +117,7 @@
                                   </div>
                                   <div>
                                       <h1 class="mb-3 text-zinc-500">Organization</h1>
-                                      <span class="font-source-code-pro text-xl">{{ $event->organize_by }}</span>
+                                      <span class="font-source-code-pro text-xl">{{ $event->organization->name }}</span>
                                   </div>
                               </div>
 

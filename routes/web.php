@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/events', EventController::class);
     Route::get('/events-{cat}', [EventController::class, 'getDataByCat'])->name('events.getDataByCat');
     // Route::get('/events-{id}', [EventController::class, 'getDataByCat'])->name('events.getDataByCat');
+    Route::post('/event-join/{id}', [EventController::class, 'joinEvent'])->name('event.join');
 
 });
 

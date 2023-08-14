@@ -9,12 +9,14 @@ use Illuminate\Support\Str;
 use App\Models\Organization;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\EventUser;
+
 
 class EventController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:isOrg')->except('index', 'getDataByCat');
+        $this->middleware('can:isOrg')->except('index', 'show', 'joinEvent', 'getDataByCat');
     }
 
 
@@ -23,7 +25,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events     =   Event::with('category')->get();
+        $events     =   Event::with('category', 'organization')->get();
         $cats       =   Category::all();
 
         return view('events.index', [
@@ -62,7 +64,7 @@ class EventController extends Controller
     {
         $request->validate([
             'name' => 'required | string | min:5 | max:50',
-            'slug' => 'required | string | min:5 | max:50',
+            'slug' => 'required | string | unique:events | min:5 | max:50',
             'description' => 'required | string | min:10',
             'photo' => 'required | mimes:jpg,jpeg,png',
             'location' => 'required | string | min:4 | max:30',
@@ -75,8 +77,9 @@ class EventController extends Controller
         $event->location = $request->location;
         $event->cat_id = $request->cat_value;
 
-        // return $user = User::find(auth()->user()->id)->organization;
-        $event->organize_by = auth()->user()->name;
+        //find the org id
+        $org = Organization::where('user_id', auth()->user()->id)->with('user')->first();
+        $event->organize_by = $org->user->id;
 
 
         $event->start = $request->datetime;
@@ -99,25 +102,71 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        return view('events.show', compact('event'));
+        $org = Organization::where('user_id', auth()->user()->id)->with('user')->first();
+
+        // yasko adhar ma org id match garney
+        $event = Event::where('id', $id)->with('organization')->first();
+
+        $eventI_OrgId = $event->organization->id;
+
+        $authOrgId = $org ? $org->user->id : 0;
+
+        return view('events.show', compact('event','eventI_OrgId', 'authOrgId'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        //
+        $org = Organization::where('user_id', auth()->user()->id)->with('user')->first();
+
+        // yasko adhar ma org id match garney
+        $event = Event::where('id', $id)->with('organization')->first();
+
+        $eventI_OrgId = $event->organization->id;
+
+        $authOrgId = $org ? $org->user->id : 0;
+
+        // only access owner of the event
+        if(Gate::allows('isOrg') && $authOrgId != $eventI_OrgId){
+            return redirect()->route('events.index');
+        }
+
+        
+        $event = Event::where('id', $id)->with('category')->first();
+
+        $event_cat = Category::all();
+
+        return view('events.edit', compact('event','event_cat'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $id)
     {
-        //
+        $event = Event::find($id);
+
+        $validate = $request->validate([
+            'name' => 'required | string | min:5 | max:50',
+            'slug' => 'required | string | unique:events | min:5 | max:50',
+            'description' => 'required | string | min:10',
+            'photo' => 'nullable | mimes:jpg,jpeg,png',
+            'location' => 'required | string | min:4 | max:30',
+        ]);
+
+
+        if($validate)
+        {
+            $event->name = $request->name;
+
+            $event->update();
+        }
+
+        return "done";
     }
 
     public function getDataByCat(string $slug)
@@ -133,6 +182,22 @@ class EventController extends Controller
             'events' => $events,
             'cats' => $cats,
         ]);
+    }
+    public function joinEvent($id)
+    {
+        $user = auth()->user();
+
+        if($user->events->contains($id))
+        {
+            $user->events()->detach($id);
+
+            return redirect()->route('events.show', $id)->with('status', 'You have left the event');
+        } else {
+            $user->events()->attach($id);
+
+            return redirect()->route('events.show', $id)->with('status', 'You have joined the event');
+        }
+
     }
 
     /**

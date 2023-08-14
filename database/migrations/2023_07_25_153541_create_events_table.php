@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('photo');
             $table->string('location');
             $table->foreignId('cat_id')->constrained('categories');
-            $table->string('organize_by'); //by email which is enquie for everyone tara ahile Org Name le garexa
+            // $table->string('organize_by'); //by email which is enquie for everyone tara ahile Org Name le garexa
+            $table->foreignId('organize_by')->constrained('organizations');
             $table->dateTime('start'); 
             $table->timestamps();
         });

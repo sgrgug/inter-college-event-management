@@ -24,8 +24,23 @@ class DatabaseSeeder extends Seeder
         ]);
         
         \App\Models\User::factory()->create([
-            'name' => 'Test User',
+            'name' => 'Test User 1',
             'email' => 'sgr@gmail.com',
+            'password'  => '1',
+            'role'  =>  'org',
+        ]);
+        
+        \App\Models\User::factory()->create([
+            'name' => 'Test User 2',
+            'email' => 'sagargurung@gmail.com',
+            'password'  => '1',
+            'role'  =>  'org',
+        ]);
+
+        
+        \App\Models\User::factory()->create([
+            'name' => 'a',
+            'email' => 'a@gmail.com',
             'password'  => '1',
             'role'  =>  'user',
         ]);
