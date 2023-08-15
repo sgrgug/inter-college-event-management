@@ -64,7 +64,9 @@
 
     <div class="max-w-screen-2xl m-auto p-1">
         <div class="my-10 px-2 md:px-10 lg:px-32">
-            @can('isOrg')
+
+
+            {{-- @can('isOrg')
                 <div class="grid grid-cols-1 md:grid-cols-12">
                     <div class="md:col-span-2">
                         <a href="{{ route('events.create') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Events</a>
@@ -73,7 +75,20 @@
                         <a href="{{ route('events.create') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Events</a>
                     </div>
                 </div>
-            @endcan
+            @endcan --}}
+
+            {{-- My Events --}}
+            <div class="grid grid-cols-1 md:grid-cols-12">
+                @can('isOrg')
+                    <div class="md:col-span-2">
+                        <a href="{{ route('event.myCreateEvent') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Events</a>
+                    </div>
+                @endcan
+                <div class="md:col-span-2">
+                    <a href="{{ route('event.myJoinEvent') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Joined Events</a>
+                </div>
+            </div>
+
             <div class="my-24">
                 <input id="searchInput" class="w-3/5 md:w-2/5 lg:w-1/4 rounded-3xl bg-gray-200 border-none px-5" placeholder="search events" type="text">
             </div>

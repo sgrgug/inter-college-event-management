@@ -16,7 +16,7 @@ class EventController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:isOrg')->except('index', 'show', 'joinEvent', 'getDataByCat');
+        $this->middleware('can:isOrg')->except('index', 'show', 'joinEvent', 'getDataByCat', 'myJoinEvent');
     }
 
 
@@ -198,6 +198,31 @@ class EventController extends Controller
             return redirect()->route('events.show', $id)->with('status', 'You have joined the event');
         }
 
+    }
+
+    // detail about the created event only access by org
+    public function myCreateEvent()
+    {
+        $myCreatedEvents = Event::where('organize_by', auth()->user()->id)->get();
+
+        return view('events.mycreateevents', [
+            'myCreatedEvents' => $myCreatedEvents,
+        ]);
+    }
+
+
+    // My Event
+    public function myJoinEvent()
+    {
+        $authUserEvent = User::where('id', auth()->user()->id)
+                        ->with('events')
+                        ->first();
+
+        $myJoinedEvents = $authUserEvent->events;
+
+        return view('events.joinevent', [
+            'myJoinedEvents' => $myJoinedEvents,
+        ]);
     }
 
     /**
