@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d26b8fdc29fa4d148f63ef4051b155ea",
+    "content-hash": "914b5d3df75772c5116430dc5226c1ea",
     "packages": [
         {
             "name": "brick/math",
@@ -60,6 +60,68 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "cixware/esewa-php-sdk",
+            "version": "2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cixware/esewa-php-sdk.git",
+                "reference": "2874e88078dc1ff74ff7fb03decf6c4891f7cca9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cixware/esewa-php-sdk/zipball/2874e88078dc1ff74ff7fb03decf6c4891f7cca9",
+                "reference": "2874e88078dc1ff74ff7fb03decf6c4891f7cca9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "guzzlehttp/guzzle": "^7.5",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.15",
+                "phpunit/phpunit": "^9.6",
+                "rector/rector": "^0.15"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cixware\\Esewa\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cixware",
+                    "email": "support@cixware.io",
+                    "homepage": "https://cixware.io"
+                },
+                {
+                    "name": "Madan Sapkota",
+                    "email": "contact+github@madansapkota.com",
+                    "homepage": "https://madansapkota.com"
+                }
+            ],
+            "description": "eSewa payment gateway integration in PHP.",
+            "homepage": "https://github.com/cixware/esewa-php-sdk",
+            "keywords": [
+                "api",
+                "esewa",
+                "gateway",
+                "nepal",
+                "payment",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/cixware/esewa-php-sdk/issues",
+                "source": "https://github.com/cixware/esewa-php-sdk/tree/2.5.0"
+            },
+            "time": "2023-03-24T04:19:34+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

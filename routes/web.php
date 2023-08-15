@@ -65,9 +65,9 @@ Route::middleware('auth')->group(function () {
 
     //esewa controller
     Route::get('/esewa', [EsewaController::class, 'esewaPay'])->name('esewa');
-
-
-
+    Route::get('/success', [EsewaController::class, 'esewaSuccess'])->name('success');
+    Route::get('/failure', [EsewaController::class, 'esewaFailure'])->name('failure');
+    
 });
 
 require __DIR__.'/auth.php';

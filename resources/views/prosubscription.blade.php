@@ -3,7 +3,7 @@
         <div class="my-10 px-2 md:px-10 lg:px-32">
 
             @if (session('status'))
-                <div class="bg-green-500 text-white p-2 rounded-md">
+                <div class="{{ session('status') == 'Payment Successful' ? 'bg-green-500' : 'bg-red-500' }} text-white p-2 rounded-md">
                     {{ session('status') }}
                 </div>
             @endif
@@ -77,7 +77,7 @@
                                     <h2 class="text-sm tracking-widest title-font mb-1 font-medium">PRO</h2>
                                     <h1
                                         class="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
-                                        <span>Rs. 38</span>
+                                        <span>Rs. 599</span>
                                         <span class="text-lg ml-1 font-normal text-gray-500">/yr</span>
                                     </h1>
                                     <p class="flex items-center text-gray-600 mb-2">
@@ -131,7 +131,7 @@
                                     </button>
                                     <script>
                                         function buyPro() {
-                                            window.location.href = "{{ route('buy-pro') }}";
+                                            window.location.href = "{{ route('esewa') }}";
                                         }
                                     </script>
                                 </div>

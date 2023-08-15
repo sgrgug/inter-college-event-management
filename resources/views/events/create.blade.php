@@ -10,12 +10,20 @@
 
             <div class="bg-white shadow-sm">
                 <h1 class="inline-block font-bold text-lg px-4 py-5 rounded shadow-sm w-full">Create Event</h1>
-                <div class="px-4 py-5">
-                    <b class="text-red-600">Note:</b><span> You have </span><b class="text-green-600">{{ $org->noofcreation }}</b><span></span> times to create events.</span>
-                    <div class="text-blue-500 hover:text-blue-700">
-                        <a href="{{ route('proSubscription') }}">Click here to buy pro subscription!</a>
+                
+
+                @if($org->prosub == true)
+                    <div class="px-4 py-5">
+                        <b class="text-red-600">Note: </b><span>You have Pro Subscription so, you can create unlimited events.</span>
                     </div>
-                </div>
+                @else
+                    <div class="px-4 py-5">
+                        <b class="text-red-600">Note:</b><span> You have </span><b class="text-green-600">{{ $org->noofcreation }}</b><span></span> times to create events.</span>
+                        <div class="text-blue-500 hover:text-blue-700">
+                            <a href="{{ route('proSubscription') }}">Click here to buy pro subscription!</a>
+                        </div>
+                    </div>
+                @endif
 
                 <form action="{{ route('events.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
