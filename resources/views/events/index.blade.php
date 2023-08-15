@@ -80,11 +80,11 @@
             {{-- My Events --}}
             <div class="grid grid-cols-1 md:grid-cols-12">
                 @can('isOrg')
-                    <div class="md:col-span-2">
+                    <div class="md:col-span-3">
                         <a href="{{ route('event.myCreateEvent') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Events</a>
                     </div>
                 @endcan
-                <div class="md:col-span-2">
+                <div class="md:col-span-3">
                     <a href="{{ route('event.myJoinEvent') }}" class="inline-block bg-blue-500 text-white py-3 px-10 border-2 rounded">My Joined Events</a>
                 </div>
             </div>

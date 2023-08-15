@@ -21,6 +21,8 @@ class OrganizationSeeder extends Seeder
                 'description'   =>  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut illum consequuntur harum, atque dolore dolor omnis explicabo aliquid nulla id.',
                 'photo'         =>  'gces-expo-9th-1690299480.jpg',
                 'location'      =>  'Kathmandu, Nepal',
+                'noofcreation'  =>  5,
+                'prosub'        =>  false,
                 'created_at'    =>  Carbon::now(),
                 'updated_at'    =>  Carbon::now(),
             ],
@@ -30,6 +32,8 @@ class OrganizationSeeder extends Seeder
                 'description'   =>  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut illum consequuntur harum, atque dolore dolor omnis explicabo aliquid nulla id.',
                 'photo'         =>  'gces-expo-9th-1690299480.jpg',
                 'location'      =>  'Kathmandu, Nepal',
+                'noofcreation'  =>  5,
+                'prosub'        =>  false,
                 'created_at'    =>  Carbon::now(),
                 'updated_at'    =>  Carbon::now(),
             ]

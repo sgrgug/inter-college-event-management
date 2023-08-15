@@ -54,7 +54,9 @@ class EventController extends Controller
         //event category show 
         $event_cat = Category::all();
 
-        return view('events.create', compact('event_cat'));
+        $org = Organization::where('user_id', auth()->user()->id)->first();
+
+        return view('events.create', compact('event_cat', 'org'));
     }
 
     /**
@@ -64,7 +66,7 @@ class EventController extends Controller
     {
         $request->validate([
             'name' => 'required | string | min:5 | max:50',
-            'slug' => 'required | string | unique:events | min:5 | max:50',
+            'slug' => 'required | string | unique:events| min:5 | max:50',
             'description' => 'required | string | min:10',
             'photo' => 'required | mimes:jpg,jpeg,png',
             'location' => 'required | string | min:4 | max:30',
@@ -96,7 +98,21 @@ class EventController extends Controller
 
         $event->save();
 
-        return redirect()->route('events.index');
+        // descrease value of noofcreation
+        if($org->prosub == false)
+        {
+            if($org->noofcreation > 0 && $org->noofcreation <= 5)
+            {
+                $updateorg = Organization::where('user_id', auth()->user()->id)->first();
+
+                $updateorg->noofcreation = $org->noofcreation - 1;
+                $updateorg->update();
+            } else {
+                return "You have reached your limit of creating event.";
+            }
+        }
+
+        return redirect()->route('events.create')->with('status', 'Event created successfully');
     }
 
     /**

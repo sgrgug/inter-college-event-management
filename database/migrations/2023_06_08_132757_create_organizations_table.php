@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('photo')->nullable();
             $table->string('location')->nullable();
+            $table->integer('noofcreation')->default(5);
+            $table->boolean('prosub')->default(false);
             $table->timestamps();
         });
     }

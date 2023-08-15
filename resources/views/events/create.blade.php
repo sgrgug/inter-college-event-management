@@ -2,10 +2,20 @@
     <div class="max-w-screen-2xl m-auto p-1">
         <div class="my-10 px-2 md:px-10 lg:px-32">
 
+            @if (session('status'))
+                <div class="bg-green-500 text-white p-2 rounded-md">
+                    {{ session('status') }}
+                </div>
+            @endif
 
             <div class="bg-white shadow-sm">
                 <h1 class="inline-block font-bold text-lg px-4 py-5 rounded shadow-sm w-full">Create Event</h1>
-
+                <div class="px-4 py-5">
+                    <b class="text-red-600">Note:</b><span> You have </span><b class="text-green-600">{{ $org->noofcreation }}</b><span></span> times to create events.</span>
+                    <div class="text-blue-500 hover:text-blue-700">
+                        <a href="{{ route('proSubscription') }}">Click here to buy pro subscription!</a>
+                    </div>
+                </div>
 
                 <form action="{{ route('events.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -14,7 +24,7 @@
                         @error('name')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input id="field1" oninput="copyFieldToSlug()" class="rounded-md border-gray-400" placeholder="Event Name" name="name" type="text" value={{ old('name') }}>
+                        <input @disabled($org->noofcreation <= 0) id="field1" oninput="copyFieldToSlug()" class="rounded-md border-gray-400 {{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" placeholder="Event Name" name="name" type="text" value={{ old('name') }}>
                     </div>
 
                     <div class="flex flex-col p-4">
@@ -22,7 +32,7 @@
                         @error('slug')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input id="slug" class="rounded-md border-gray-400" placeholder="Event Slug" name="slug" type="text" value={{ old('slug') }}>
+                        <input @disabled($org->noofcreation <= 0) id="slug" class="rounded-md border-gray-400 {{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" placeholder="Event Slug" name="slug" type="text" value={{ old('slug') }}>
                     </div>
 
                     <script>
@@ -47,7 +57,7 @@
                         @error('description')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <textarea class="rounded-md border-gray-400" name="description" placeholder="Description" type="text">{{ old('description') }}</textarea>
+                        <textarea @disabled($org->noofcreation <= 0) class="rounded-md border-gray-400 {{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" name="description" placeholder="Description" type="text">{{ old('description') }}</textarea>
                     </div>
                     
                     <div class="flex flex-col p-5">
@@ -56,7 +66,7 @@
                         @error('category')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <select class="rounded-md border-gray-400" name="cat_value" id="cat_value">
+                        <select @disabled($org->noofcreation <= 0) class="rounded-md border-gray-400 {{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" name="cat_value" id="cat_value">
                             @foreach ($event_cat as $all_cat)
                                 <option value="{{ $all_cat->id }}">{{ $all_cat->cat_name }}</option>
                             @endforeach
@@ -69,7 +79,7 @@
                         @error('photo')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input type="file" name="photo">
+                        <input @disabled($org->noofcreation <= 0) type="file" name="photo">
                     </div>
                     
                     <div class="flex flex-col p-5">
@@ -77,7 +87,7 @@
                         @error('location')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input class="rounded-md border-gray-400" name="location" type="text" value="{{ old('location') }}">
+                        <input @disabled($org->noofcreation <= 0) class="rounded-md border-gray-400 {{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" name="location" type="text" value="{{ old('location') }}">
                     </div>
 
 
@@ -86,11 +96,11 @@
                         @error('datetime')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                        <input type="datetime-local" id="datetime" name="datetime" value="{{ old('datetime') }}">
+                        <input @disabled($org->noofcreation <= 0) class="{{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" type="datetime-local" id="datetime" name="datetime" value="{{ old('datetime') }}">
                     </div>
 
                     <div class="p-5">
-                        <input class="bg-blue-500 text-white px-3 py-1 cursor-pointer rounded-md my-4" type="submit" value="Save">
+                        <input @disabled($org->noofcreation <= 0) class="bg-blue-500 text-white px-3 py-1 cursor-pointer rounded-md my-4 {{ $org->noofcreation <= 0 ? 'bg-zinc-200' : '' }}" type="submit" value="Save">
                     </div>
                 </form>
             </div>

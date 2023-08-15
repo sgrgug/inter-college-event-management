@@ -4,7 +4,7 @@
         <div class="max-w-screen-2xl m-auto p-1">
              <hr class="w-3/4 mx-auto">
              <div class="my-10 px-2 md:px-10 lg:px-32">
-                <div class="w-5/6">
+                <div class="w-5/6 mx-auto">
                     
                     <h1 class="text-4xl md:text-4xl lg:text-6xl">My Joined Events</h1>
                     

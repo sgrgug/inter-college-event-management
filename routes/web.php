@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrgProfileController;
+use App\Http\Controllers\EsewaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/event-join/{id}', [EventController::class, 'joinEvent'])->name('event.join');
     Route::get('/event/my-join-event', [EventController::class, 'myJoinEvent'])->name('event.myJoinEvent');
     Route::get('/event/my-create-event', [EventController::class, 'myCreateEvent'])->name('event.myCreateEvent');
+
+
+    // Pro Subscription
+    Route::get('/pro-subscription', function(){
+        return view('prosubscription');
+    })->name('proSubscription');
+
+    //esewa controller
+    Route::get('/esewa', [EsewaController::class, 'esewaPay'])->name('esewa');
 
 
 
