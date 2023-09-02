@@ -28,6 +28,10 @@
 
         @include('layouts.footer')
 
+       
+        
+
+        <script src="https://app.algomo.com/algomo.min.js" widget="64f36ff0669df8dab3e65e06" async defer></script>
         <script>
             // Function to hide the spinner
             function hideSpinner() {

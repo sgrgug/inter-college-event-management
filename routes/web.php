@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\EsewaController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/esewa', [EsewaController::class, 'esewaPay'])->name('esewa');
     Route::get('/success', [EsewaController::class, 'esewaSuccess'])->name('success');
     Route::get('/failure', [EsewaController::class, 'esewaFailure'])->name('failure');
+
+    // dashboard
+    Route::get('/org-dashboard', [DashboardController::class, 'index'])->name('orgdashboard');
     
 });
 

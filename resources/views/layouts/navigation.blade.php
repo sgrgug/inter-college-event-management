@@ -45,6 +45,12 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @can('isOrg')
+                            <x-dropdown-link :href="route('orgdashboard')">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                        @endcan
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -99,6 +105,12 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @can('isOrg')
+                    <x-dropdown-link :href="route('orgdashboard')">
+                        {{ __('Dashboard') }}
+                    </x-dropdown-link>
+                @endcan
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
