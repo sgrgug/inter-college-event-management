@@ -27,6 +27,23 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+
+                <span class="relative inline-block mx-2">
+                    
+                    @can('isOrg')
+                        <ion-icon name="notifications-outline"></ion-icon>
+                        @php
+                            // get authorg id
+                            $authOrgId = \App\Models\Organization::where('user_id', auth()->user()->id)->first()->id;
+                            // For Notification Count
+                            $notificationCount = \App\Models\Notification::where('org_id', $authOrgId)->where('read', false)->count();
+                        @endphp
+                        
+                        <span class="bg-red-500 text-white absolute top-0 -right-1 -mt-1 -mr-1 h-4 w-4 rounded-full text-xs flex items-center justify-center">{{ $notificationCount }}</span>
+
+                    @endcan
+                </span>
+                  
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">

@@ -10,7 +10,7 @@ use App\Models\Organization;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\EventUser;
-
+use App\Models\Notification;
 
 class EventController extends Controller
 {
@@ -210,6 +210,19 @@ class EventController extends Controller
             return redirect()->route('events.show', $id)->with('status', 'You have left the event');
         } else {
             $user->events()->attach($id);
+
+
+            // get the details of org
+            $event = Event::find($id);
+
+            $notification = new Notification;
+            $notification->type = 'Event Join';
+            $notification->title = 'Event Join';
+            $notification->message = "$user->name has joined the $event->name event";
+            $notification->user_id = auth()->user()->id;
+            $notification->event_id = $id;
+            $notification->org_id = $event->organize_by;
+            $notification->save();
 
             return redirect()->route('events.show', $id)->with('status', 'You have joined the event');
         }

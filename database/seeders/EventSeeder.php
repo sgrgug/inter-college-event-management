@@ -34,7 +34,7 @@ class EventSeeder extends Seeder
                 'location'      =>  'Pokhara-2',
                 'cat_id'        =>  3,
                 'organize_by'   =>  2,
-                'start'         =>  '2021-08-28 15:00:00',
+                'start'         =>  '2024-08-28 15:00:00',
                 'created_at'    =>  Carbon::now(),
                 'updated_at'    =>  Carbon::now(),
             ],

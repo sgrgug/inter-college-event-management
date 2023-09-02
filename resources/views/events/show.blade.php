@@ -73,18 +73,27 @@
                         </script>
                     @endif
 
-                    @php
+                    {{-- @php
                         $eventusers = \App\Models\EventUser::where('user_id', auth()->user()->id)->get();
                     @endphp
 
                     @foreach ($eventusers as $eventuser)
                         {{ $eventuser->event_id }}
-                    @endforeach
-                    <form action="{{ route('event.join', $event->id) }}" method="post">
-                        @csrf
-                        <input class="inline-block bg-blue-500 text-white py-2 px-5 rounded-md my-4 cursor-pointer {{ auth()->user()->events->contains($event->id) ? 'bg-zinc-500' : '' }}" type="submit" value="{{ auth()->user()->events->contains($event->id) ? 'Joined' : 'Join' }}">
-                        {{-- <input class="inline-block bg-blue-500 text-white py-2 px-5 rounded-md my-4 cursor-pointer" type="submit" value="s"> --}}
-                    </form>
+                    @endforeach --}}
+
+                    
+                    @if ($eventI_OrgId == $authOrgId)
+                        <div>This event is oraganize by yourself!</div>
+                    @else 
+                        @if ($event->start >= \Carbon\Carbon::now())
+                            <form action="{{ route('event.join', $event->id) }}" method="post">
+                                @csrf
+                                <input class="inline-block bg-blue-500 text-white py-2 px-5 rounded-md my-4 cursor-pointer {{ auth()->user()->events->contains($event->id) ? 'bg-zinc-500' : '' }}" type="submit" value="{{ auth()->user()->events->contains($event->id) ? 'Joined' : 'Join' }}">
+                            </form>
+                        @else
+                            <div>This event is ended!</div>
+                        @endif
+                    @endif
                 </div>
              </div>
          </div>
