@@ -83,7 +83,7 @@
 
                     
                     @if ($eventI_OrgId == $authOrgId)
-                        <div>This event is oraganize by yourself!</div>
+                        <div class="text-yellow-500">This event is oraganize by yourself!</div>
                     @else 
                         @if ($event->start >= \Carbon\Carbon::now())
                             <form action="{{ route('event.join', $event->id) }}" method="post">
@@ -115,15 +115,17 @@
 
                             <div class="bg-[#f3f3f3] border-2 rounded-md p-5">
                                 @csrf
-                                <form method="POST" action="">
-                                    
+                                <form method="POST" action="{{ route('events.reviews.store', $event->id) }}">
+                                    @csrf
                                     <label class="inline-block font-bold my-3" for="">Username: </label><span> {{ auth()->user()->name }}</span><br />
 
                                     <label class="inline-block font-bold my-3" for="">Rating: </label><br />
-                                    <input type="number" id="rating" min="1" max="5" name="rating" placeholder="Rating" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br />
+                                    <input type="text" id="rating" min="1" max="5" name="rating" placeholder="Rating" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br />
 
                                     <label class="inline-block font-bold my-3" for="">Comment: </label><br />
                                     <textarea name="comment" id="comment" placeholder="Add Review" class="bg-white rounded border w-full border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea><br /><br />
+
+                                    <input class="bg-blue-500 px-4 py-2 text-white cursor-pointer" type="submit" value="Submit Review">
                                 </form>
                             </div>
 
@@ -131,6 +133,62 @@
                             <div>This event is ended!</div>
                         @endif
                     @endif
+                    <div class="text-2xl font-bold mt-6">Reviews</div>
+
+                    @foreach ($reviews as $item)
+                        <div class="grid grid-cols-12 bg-zinc-100 cursor-pointer p-4 mt-7">
+                            <div class="col-span-1">
+                                <div class="bg-zinc-300 w-fit rounded-full px-5 py-4 text-4xl">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                </div>
+                            </div>
+                            <div class="col-span-10">
+                                <div class="flex items-center space-x-1">
+                                    @php
+                                        $user = \App\Models\User::where('id', $item->user_id)->first();
+                                    @endphp
+                                    <a href="" class="font-bold hover:underline">{{ $user->name }}</a>
+                                    <div class="text-zinc-600">
+                                        {{-- {{ __('@') }}{{ $tweet->user->username }} --}}
+                                        {{ __('·') }}
+                                        {{ $item->created_at->diffForHumans() }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <ion-icon class="text-yellow-400" name="star"></ion-icon><small>{{ $item->rating }}/5</small>
+                                </div>
+                                <a href="">
+                                    <div class="mb-4">
+                                        {{ $item->comment }}
+                                    </div>
+                                </a>
+                                <div class="flex justify-between text-md">
+                                    <div class="p-2 hover:bg-blue-100 hover:text-blue-700 duration-300 rounded-full">
+                                        <a class="flex items-center" href="#">
+                                            <ion-icon name="chatbubble-outline"></ion-icon>
+                                            <span></span>
+                                        </a>
+                                    </div>
+                                    {{-- <div class="p-2 hover:bg-green-100 hover:text-green-700 duration-300 rounded-full">
+                                        <a href="#"><ion-icon name="git-compare-outline"></ion-icon></a>
+                                    </div> --}}
+                                    <div class="p-2 hover:bg-red-100 hover:text-red-700 duration-300 rounded-full">
+                                        <a href="#"><ion-icon name="heart-outline"></ion-icon></a>
+                                    </div>
+                                    {{-- <div class="p-2 hover:bg-blue-100 hover:text-blue-700 duration-300 rounded-full">
+                                        <a href="#"><ion-icon name="stats-chart-outline"></ion-icon></a>
+                                    </div> --}}
+                                    <div class="p-2 hover:bg-blue-100 hover:text-blue-700 duration-300 rounded-full">
+                                        <a href="#"><ion-icon name="share-outline"></ion-icon></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-1">
+                                <ion-icon class="hover:bg-blue-100 rounded-full p-3 duration-300" name="ellipsis-horizontal"></ion-icon>
+                            </div>
+                
+                        </div>
+                    @endforeach
                 </div>
              </div>
          </div>

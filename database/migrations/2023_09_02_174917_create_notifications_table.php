@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['Null', 'Event Join', 'Volunteer'])->default('Null');
+            $table->enum('type', ['Null', 'Event Join', 'Volunteer', 'Event Review'])->default('Null');
             $table->string('title');
             $table->longtext('message');
             $table->string('user_id')->nullable();

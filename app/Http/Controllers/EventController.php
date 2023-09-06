@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Models\EventUser;
 use App\Models\Notification;
+use App\Models\Review;
 
 class EventController extends Controller
 {
@@ -129,7 +130,12 @@ class EventController extends Controller
 
         $authOrgId = $org ? $org->user->id : 0;
 
-        return view('events.show', compact('event','eventI_OrgId', 'authOrgId'));
+
+        // show Reviews
+        $reviews = Review::where('event_id', $id)->with('event')->get();
+
+
+        return view('events.show', compact('event','eventI_OrgId', 'authOrgId', 'reviews'));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/volunteer/{id}', [VolunteerController::class, 'store'])->name('volunteer');
     Route::get('/volunteer-approve/{id}', [VolunteerController::class, 'approve'])->name('volunteer.approve');
     Route::get('/volunteer-reject/{id}', [VolunteerController::class, 'reject'])->name('volunteer.reject');
+
+    // Review 
+    Route::post('/events/{id}/reviews', [ReviewController::class, 'store'])->name('events.reviews.store');
     
 });
 
