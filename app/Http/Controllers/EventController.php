@@ -222,6 +222,7 @@ class EventController extends Controller
             $notification->user_id = auth()->user()->id;
             $notification->event_id = $id;
             $notification->org_id = $event->organize_by;
+            $notification->noti_to_user = $event->organize_by;
             $notification->save();
 
             return redirect()->route('events.show', $id)->with('status', 'You have joined the event');

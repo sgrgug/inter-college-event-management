@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['Null', 'Event Join'])->default('Null');
+            $table->enum('type', ['Null', 'Event Join', 'Volunteer'])->default('Null');
             $table->string('title');
             $table->longtext('message');
             $table->string('user_id')->nullable();
             $table->string('event_id')->nullable();
             $table->string('org_id')->nullable();
+            $table->string('noti_to_user')->nullable();
             $table->boolean('read')->default(false);
             $table->timestamps();
         });

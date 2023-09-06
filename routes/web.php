@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VolunteerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,11 @@ Route::middleware('auth')->group(function () {
 
     // dashboard
     Route::get('/org-dashboard', [DashboardController::class, 'index'])->name('orgdashboard');
+
+    // Volunteer
+    Route::post('/volunteer/{id}', [VolunteerController::class, 'store'])->name('volunteer');
+    Route::get('/volunteer-approve/{id}', [VolunteerController::class, 'approve'])->name('volunteer.approve');
+    Route::get('/volunteer-reject/{id}', [VolunteerController::class, 'reject'])->name('volunteer.reject');
     
 });
 

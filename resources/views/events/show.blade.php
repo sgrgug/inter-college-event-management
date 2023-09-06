@@ -90,6 +90,43 @@
                                 @csrf
                                 <input class="inline-block bg-blue-500 text-white py-2 px-5 rounded-md my-4 cursor-pointer {{ auth()->user()->events->contains($event->id) ? 'bg-zinc-500' : '' }}" type="submit" value="{{ auth()->user()->events->contains($event->id) ? 'Joined' : 'Join' }}">
                             </form>
+
+                            {{-- Event volunteer --}}
+
+                            <div class="my-10">
+                                <h1 class="text-3xl font-bold my-3">Become Volunteer</h1>
+                                <div class="bg-[#f3f3f3] border-2 rounded-md p-5">
+                                    <form action="{{ route('volunteer', $event->id) }}" method="post">
+                                        @csrf
+                                        <label class="inline-block font-bold my-3" for="">Volunteer Type: </label><br />
+                                        <input type="text" id="type" name="type" placeholder="Volunteer Type" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br />
+
+                                        <label class="inline-block font-bold my-3" for="">Volunteer Description: </label><br />
+                                        <textarea name="description" id="description" placeholder="Mention why your become volunteer!" class="bg-white rounded border w-full border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea><br /><br />
+
+                                        <input class="bg-blue-500 px-4 py-2 text-white cursor-pointer" type="submit" value="Submit">
+                                    </form>
+                                </div>
+                            </div>
+
+                            {{-- Review Section --}}
+
+                            <h1 class="text-3xl font-bold my-3">Add A Review</h1>
+
+                            <div class="bg-[#f3f3f3] border-2 rounded-md p-5">
+                                @csrf
+                                <form method="POST" action="">
+                                    
+                                    <label class="inline-block font-bold my-3" for="">Username: </label><span> {{ auth()->user()->name }}</span><br />
+
+                                    <label class="inline-block font-bold my-3" for="">Rating: </label><br />
+                                    <input type="number" id="rating" min="1" max="5" name="rating" placeholder="Rating" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"><br />
+
+                                    <label class="inline-block font-bold my-3" for="">Comment: </label><br />
+                                    <textarea name="comment" id="comment" placeholder="Add Review" class="bg-white rounded border w-full border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea><br /><br />
+                                </form>
+                            </div>
+
                         @else
                             <div>This event is ended!</div>
                         @endif

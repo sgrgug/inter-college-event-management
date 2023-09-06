@@ -16,6 +16,7 @@ class Notification extends Model
         'user_id',
         'event_id',
         'org_id',
+        'noti_to_user',
         'read',
     ];
 }

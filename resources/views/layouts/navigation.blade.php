@@ -30,18 +30,42 @@
 
                 <span class="relative inline-block mx-2">
                     
-                    @can('isOrg')
-                        <ion-icon name="notifications-outline"></ion-icon>
-                        @php
-                            // get authorg id
-                            $authOrgId = \App\Models\Organization::where('user_id', auth()->user()->id)->first()->id;
-                            // For Notification Count
-                            $notificationCount = \App\Models\Notification::where('org_id', $authOrgId)->where('read', false)->count();
-                        @endphp
-                        
-                        <span class="bg-red-500 text-white absolute top-0 -right-1 -mt-1 -mr-1 h-4 w-4 rounded-full text-xs flex items-center justify-center">{{ $notificationCount }}</span>
+                    @if (auth()->user()->role == 'org')
+                        @can('isOrg')
+                        <a href="{{ route('orgdashboard') }}">
+                            <ion-icon name="notifications-outline"></ion-icon>
+                            @php
+                                // get authorg id
+                                $authOrgId = \App\Models\Organization::where('user_id', auth()->user()->id)->first()->id;
+                                // For Notification Count
+                                $notificationCount = \App\Models\Notification::where('noti_to_user', auth()->user()->id)->where('read', false)->count();
+                            @endphp
+                            
+                            <span class="bg-red-500 text-white absolute top-0 -right-1 -mt-1 -mr-1 h-4 w-4 rounded-full text-xs flex items-center justify-center">{{ $notificationCount }}</span>
+                        </a>
+                        @endcan
+                    @else
+                    @php
+                                // For Notification Count
+                                $notificationCount = \App\Models\Notification::where('noti_to_user', auth()->user()->id)->where('read', false)->count();
+                                $notifications = \App\Models\Notification::where('noti_to_user', auth()->user()->id)->limit(6)->get();
+                                @endphp    
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <ion-icon name="notifications-outline"></ion-icon>
+                                    <span class="bg-red-500 text-white absolute top-0 -right-1 -mt-1 -mr-1 h-4 w-4 rounded-full text-xs flex items-center justify-center">{{ $notificationCount }}</span>
+                                </x-slot>
 
-                    @endcan
+                                <x-slot name="content">
+                                    @foreach ($notifications as $notification)
+                                        <div class="my-1 p-5 hover:bg-zinc-200 hover:rounded-md">
+                                            <span class="font-bold">{{ $notification->title }} </span><span>{{ $notification->message }}</span><ion-icon class="{{ $notification->read == false ? 'text-blue-500 px-2' : 'text-transparent' }}" name="ellipse"></ion-icon><br />
+                                            <p class="text-sm text-bold {{ $notification->read == false ? 'text-blue-500' : 'text-zinc-400' }}">{{ $notification->created_at->diffForHumans()  }}</p>
+                                        </div>
+                                    @endforeach
+                                </x-slot>
+                            </x-dropdown>
+                    @endif
                 </span>
                   
                 <x-dropdown align="right" width="48">
