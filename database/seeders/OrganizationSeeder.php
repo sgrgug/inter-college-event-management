@@ -36,9 +36,20 @@ class OrganizationSeeder extends Seeder
                 'prosub'        =>  false,
                 'created_at'    =>  Carbon::now(),
                 'updated_at'    =>  Carbon::now(),
+            ],
+            [
+                'user_id'       =>  3,
+                'name'          =>  'Testing Organization',
+                'description'   =>  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut illum consequuntur harum, atque dolore dolor omnis explicabo aliquid nulla id.',
+                'photo'         =>  'gces-expo-9th-1690299480.jpg',
+                'location'      =>  'Pokhara, Nepal',
+                'noofcreation'  =>  5,
+                'prosub'        =>  false,
+                'created_at'    =>  Carbon::now(),
+                'updated_at'    =>  Carbon::now(),
             ]
         ];
 
-        \DB::table('organizations')->insert($data);
+        DB::table('organizations')->insert($data);
     }
 }

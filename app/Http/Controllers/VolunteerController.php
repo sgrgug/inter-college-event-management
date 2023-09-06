@@ -64,4 +64,24 @@ class VolunteerController extends Controller
 
         return redirect()->back()->with('status', 'Volunteer Request has been approved');
     }
+    public function reject($id)
+    {
+        $volunteer = Volunteer::find($id);
+        $volunteer->status = 'Reject';
+        $volunteer->update();
+
+        // send notification to user
+        $notification = new Notification;
+        $notification->type     = 'Volunteer';
+        $notification->title    = 'Volunteer Request';
+        $notification->message  = $volunteer->user->name . ' Your volunteer request has been rejected';
+        $notification->event_id = $volunteer->event_id;
+        $notification->user_id  = $volunteer->org_id;
+        $notification->org_id   = $volunteer->org_id;
+        $notification->noti_to_user = $volunteer->user_id;
+
+        $notification->save();
+
+        return redirect()->back()->with('status', 'Volunteer Request has been rejected');
+    }
 }

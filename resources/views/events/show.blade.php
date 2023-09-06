@@ -81,6 +81,70 @@
                         {{ $eventuser->event_id }}
                     @endforeach --}}
 
+                    @can('isOrg')
+                        @if ($eventI_OrgId == $authOrgId)
+
+                            {{-- Volunteer Listing --}}
+                            <div class="my-3">
+                                <h1 class="font-bold text-2xl">List of Volunteer</h1>
+                                <div class="bg-zinc-100">
+                                    <table class="table w-full">
+                                        <thead>
+                                            <tr class="bg-zinc-300">
+                                                <th scope="col">S.N</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Comment</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Created_at</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                @foreach ($volunteers as $volunteer)
+                                                <tr class="text-center hover:bg-white duration-300 ease-out">
+
+                                                    <td>{{ $loop->iteration }}.</td>
+                                                    <td>{{ $volunteer->user->name }}</td>
+                                                    <td>{{ $volunteer->type }}</td>
+                                                    <td>{{ $volunteer->description }}</td>
+                                                    <td>{{ $volunteer->status }}</td>
+                                                    <td>{{ $volunteer->created_at->diffForHumans() }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {{-- List of Joining --}}
+                            <div class="my-3">
+                                <h1 class="font-bold text-2xl">List of Joining</h1>
+                                <div class="bg-zinc-100">
+                                    <table class="table w-full">
+                                        <thead>
+                                            <tr class="bg-zinc-300">
+                                                <th scope="col">S.N</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Join</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                @foreach ($joinedListing->users as $item)
+                                                <tr class="text-center hover:bg-white duration-300 ease-out">
+                                                    <td>{{ $loop->iteration }}.</td>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->email }}</td>
+                                                    <td>{{ $joinedListing->created_at->diffForHumans() }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+                    @endcan
+
                     
                     @if ($eventI_OrgId == $authOrgId)
                         <div class="text-yellow-500">This event is oraganize by yourself!</div>

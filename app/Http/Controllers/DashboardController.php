@@ -21,11 +21,11 @@ class DashboardController extends Controller
         // For Notification Count
         $notificationCount = Notification::where('noti_to_user', auth()->user()->id)->where('read', false)->count();
         // For All Notification
-        $notifications = Notification::where('noti_to_user', auth()->user()->id)->limit(6)->get();
+        $notifications = Notification::where('noti_to_user', auth()->user()->id)->limit(6)->latest()->get();
 
         return view('dashboard', [
             'org'               =>  Organization::where('user_id', auth()->user()->id)->firstOrFail(),
-            'myEvents'          =>  Event::where('organize_by', auth()->user()->id)->limit(2)->get(),
+            'myEvents'          =>  Event::where('organize_by', auth()->user()->id)->limit(3)->get(),
             'myEventCount'      =>  Event::where('organize_by', auth()->user()->id)->count(),
             'notificationCount' =>  $notificationCount,
             'notifications'     =>  $notifications,

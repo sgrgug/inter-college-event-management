@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\EventUser;
 use App\Models\Notification;
 use App\Models\Review;
+use App\Models\Volunteer;
 
 class EventController extends Controller
 {
@@ -134,8 +135,14 @@ class EventController extends Controller
         // show Reviews
         $reviews = Review::where('event_id', $id)->with('event')->get();
 
+        // list of joining
+        $joinedListing = Event::where('id', $id)->with('users')->first();
 
-        return view('events.show', compact('event','eventI_OrgId', 'authOrgId', 'reviews'));
+        // list of volunteer
+        $volunteers = Volunteer::where('event_id', $id)->with('user', 'event')->get();
+
+
+        return view('events.show', compact('event','eventI_OrgId', 'authOrgId', 'reviews', 'joinedListing', 'volunteers'));
     }
 
     /**

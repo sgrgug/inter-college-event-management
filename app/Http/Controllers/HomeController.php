@@ -14,6 +14,12 @@ class HomeController extends Controller
     public function index()
     {
 
+        // redirect to admin panel if logged use is admin
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+
         // To check whether any of attribute is null or not
         $data = Organization::where('user_id', auth()->user()->id)
             ->where(function ($query) {

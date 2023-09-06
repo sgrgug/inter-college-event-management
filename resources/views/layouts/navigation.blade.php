@@ -48,7 +48,7 @@
                     @php
                                 // For Notification Count
                                 $notificationCount = \App\Models\Notification::where('noti_to_user', auth()->user()->id)->where('read', false)->count();
-                                $notifications = \App\Models\Notification::where('noti_to_user', auth()->user()->id)->limit(6)->get();
+                                $notifications = \App\Models\Notification::where('noti_to_user', auth()->user()->id)->limit(6)->latest()->get();
                                 @endphp    
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
