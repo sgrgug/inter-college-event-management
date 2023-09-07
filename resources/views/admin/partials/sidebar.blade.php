@@ -29,7 +29,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('getUser') }}">
                 <span class="menu-title">User</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -39,6 +39,22 @@
               <span class="menu-title">Oraganization</span>
               <i class="sidebar-icon mdi mdi-account-multiple"></i>
             </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#event" aria-expanded="false" aria-controls="event">
+                <span class="menu-title">Events</span>
+                <i class="menu-arrow"></i>
+                <i style="font-size: 1.125rem; color: #bba8bff5 !important;" class="mdi mdi-clipboard-text"></i>
+            </a>
+            <div class="collapse" id="event">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('getEvent') }}">Events</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('getVolunteer') }}">Volunteer</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('getReview') }}">Review</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('getCategory') }}">Category</a>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
